@@ -1,0 +1,1 @@
+# legatbogen-scraper
