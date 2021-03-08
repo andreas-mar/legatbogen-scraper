@@ -3,13 +3,13 @@ from parse_page import LegatbogenPage
 import pandas as pd
 import os
 
-filename = 'beta_legatbogen.xlsx'
+filename = 'legatbogen.xlsx'
 all_links = get_all_links()
 counter = 0
 
 
 if os.path.exists(filename):
-    current_df = pd.read_excel('beta_legatbogen.xlsx', engine='openpyxl')
+    current_df = pd.read_excel(filename, engine='openpyxl')
     current_values = current_df['Grant id'].values
     all_links = all_links[~all_links['grant_id'].isin(current_values)]
     all_data = current_df
@@ -27,5 +27,5 @@ for link in all_links['Page'].values:
     all_data = pd.concat([all_data, page])
     # Save a checkpoint for every 50 iterations. Legatbogen does not have any mentionworthy security and throttling is not needed
     if counter % 50 == 0:
-        all_data.to_excel('beta_legatbogen.xlsx')
+        all_data.to_excel(filename)
     counter += 1
